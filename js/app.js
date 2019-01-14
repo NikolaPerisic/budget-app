@@ -1,7 +1,7 @@
 // BUDGET CONTROLLER
 const budgetController = (function() {
 
-    let Expense = function(id, description, value) {
+    const Expense = function(id, description, value) {
         this.id = id;
         this.description = description;
         this.value = value;
@@ -18,13 +18,13 @@ const budgetController = (function() {
         return this.percentage
     };
 
-    let Income = function(id, description, value) {
+    const Income = function(id, description, value) {
         this.id = id;
         this.description = description;
         this.value = value;
     };
 
-    let calculateTotal = function(type) {
+    const calculateTotal = function(type) {
         let sum = 0;
         data.allItems[type].forEach(function(item) {
             sum += item.value;
@@ -32,7 +32,7 @@ const budgetController = (function() {
         data.totals[type] = sum;
     }
     
-    let data = {
+    const data = {
         allItems: {
             exp: [],
             inc: []
@@ -110,7 +110,7 @@ const budgetController = (function() {
         },
 
         testing: function() {
-            console.log(data);
+            // console.log(data);
         }
     }
 
@@ -119,7 +119,7 @@ const budgetController = (function() {
 // UI CONTROLLER
 const uiController = (function() {
     //DOM selectors
-    let DOMSelectors = {
+    const DOMSelectors = {
         inputType: ".add__type",
         inputDescription: ".add__description",
         inputValue: ".add__value",
@@ -134,7 +134,7 @@ const uiController = (function() {
         expensesPercLabel: ".item__percentage",
         dateLabel: ".budget__title--month"
     };
-    let formatNumber = function(num, type) {
+    const formatNumber = function(num, type) {
         //format output number for UI
         num = Math.abs(num);
         num = num.toFixed(2);
@@ -146,7 +146,7 @@ const uiController = (function() {
         let dec = numSplit[1];
         return (type === "exp" ? "-" : "+") + " " + int + "." + dec;
     };
-    let nodeListForEach = function(list, callback) {
+    const nodeListForEach = function(list, callback) {
         for (let i = 0; i < list.length; i++) {
             callback(list[i], i);
         }
@@ -253,7 +253,7 @@ const uiController = (function() {
 // GLOBAL APP CONTROLLER
 const controller = (function(budgetCtrl, uiCtrl) {
 
-    let setupEventListeners = function() {
+    const setupEventListeners = function() {
         //get DOM from uiController
         let DOM = uiCtrl.getDOMSelectors();
 
@@ -271,7 +271,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
     };
 
 
-    let updateBudget = function() {
+    const updateBudget = function() {
         // calc the budget
         budgetCtrl.calculateBudget();
         // return the budget    
@@ -279,7 +279,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
         // display budget on UI
         uiCtrl.displayBudget(budget);
     };
-    let updatePercentages = function () {
+    const updatePercentages = function () {
         // calc percentages
         budgetCtrl.calculatePercentages();
         //read perc from budget controller
@@ -288,7 +288,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
         uiCtrl.displayPercentages(percentages);
     };
 
-    let ctrlAddItem = function() {
+    const ctrlAddItem = function() {
         // get field input data
         let input, newItem;
         input = uiCtrl.getInput();
@@ -307,7 +307,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
         }
     }
 
-    let ctrlDeleteItem = function(event) {
+    const ctrlDeleteItem = function(event) {
         let itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
         if (itemID) {
             //inc-ID
@@ -328,7 +328,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
 
     return {
         init: function() {
-            console.log("application has started");
+            // console.log("application has started");
             uiCtrl.displayMonth();
             uiCtrl.displayBudget({
                 budget: 0,
